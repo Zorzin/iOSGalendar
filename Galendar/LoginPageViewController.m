@@ -7,6 +7,7 @@
 //
 
 #import "LoginPageViewController.h"
+#import "MasterViewController.h"
 
 @interface LoginPageViewController ()
 
@@ -27,10 +28,11 @@
      name:@"ToggleAuthUINotification"
      object:nil];
     
+    
+    // Uncomment to automatically sign in the user.
+//    [[GIDSignIn sharedInstance] signInSilently];
     [self toggleAuthUI];
     self.statusText.text = @"Google Sign in\niOS Demo";
-    // Uncomment to automatically sign in the user.
-    //[[GIDSignIn sharedInstance] signInSilently];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -46,6 +48,7 @@
 
 - (IBAction)didTapSignOut:(id)sender {
     [[GIDSignIn sharedInstance] signOut];
+    [self toggleAuthUI];
 }
 
 - (void)toggleAuthUI {
@@ -90,6 +93,8 @@
 - (void) receiveToggleAuthUINotification:(NSNotification *) notification {
     if ([notification.name isEqualToString:@"ToggleAuthUINotification"]) {
         [self toggleAuthUI];
+        UISplitViewController *masterViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SplitViewController"];
+        [self presentViewController:masterViewController animated:NO completion:nil];
         self.statusText.text = notification.userInfo[@"statusText"];
     }
 }

@@ -10,6 +10,7 @@
 #import "LoginPageViewController.h"
 #import "DetailViewController.h"
 #import "MasterViewController.h"
+#import "User.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -29,7 +30,6 @@
     NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
     (LoginPageViewController *) self.window.rootViewController;
     [GIDSignIn sharedInstance].delegate = self;
-//    (LoginPageViewController *)self.window.rootViewController;
     return YES;
 }
 
@@ -57,10 +57,20 @@ didSignInForUser:(GIDGoogleUser *)user
     NSString *userId = user.userID;                  // For client-side use only!
     NSString *idToken = user.authentication.idToken; // Safe to send to the server
     NSString *fullName = user.profile.name;
-    NSString *givenName = user.profile.givenName;
-    NSString *familyName = user.profile.familyName;
     NSString *email = user.profile.email;
-    // ...
+    
+    [User setName:fullName];
+    [User setEmail:email];
+    [User setToken:idToken];
+    [User setUserId:userId];
+    
+    NSDictionary *statusText = @{@"statusText":
+                                     [NSString stringWithFormat:@"Signed in user: %@",
+                                      fullName]};
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"ToggleAuthUINotification"
+     object:nil
+     userInfo:statusText];
 }
 
 - (void)signIn:(GIDSignIn *)signIn

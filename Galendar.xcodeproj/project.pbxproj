@@ -16,6 +16,7 @@
 		8A6AF9531E1E6E2500A92747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9511E1E6E2500A92747 /* Main.storyboard */; };
 		8A6AF9551E1E6E2500A92747 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9541E1E6E2500A92747 /* Assets.xcassets */; };
 		8A6AF9581E1E6E2500A92747 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9561E1E6E2500A92747 /* LaunchScreen.storyboard */; };
+		8A7FD1461E1EAE39005924C8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7FD1451E1EAE39005924C8 /* User.m */; };
 		F656514FBD292ADB5EDAA131 /* libPods-Galendar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55126D6FF35DFD7D2A17D498 /* libPods-Galendar.a */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,8 @@
 		8A6AF9541E1E6E2500A92747 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A6AF9571E1E6E2500A92747 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A6AF9591E1E6E2500A92747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A7FD1451E1EAE39005924C8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8A7FD1471E1EB024005924C8 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 				8A6AF9561E1E6E2500A92747 /* LaunchScreen.storyboard */,
 				8A6AF9591E1E6E2500A92747 /* Info.plist */,
 				8A6AF9451E1E6E2500A92747 /* Supporting Files */,
+				8A7FD1451E1EAE39005924C8 /* User.m */,
+				8A7FD1471E1EB024005924C8 /* User.h */,
 			);
 			path = Galendar;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 			files = (
 				8A6AF94A1E1E6E2500A92747 /* AppDelegate.m in Sources */,
 				8A6AF94D1E1E6E2500A92747 /* MasterViewController.m in Sources */,
+				8A7FD1461E1EAE39005924C8 /* User.m in Sources */,
 				8A3E0F211E1E763F00D2017F /* LoginPageViewController.m in Sources */,
 				8A6AF9471E1E6E2500A92747 /* main.m in Sources */,
 				8A6AF9501E1E6E2500A92747 /* DetailViewController.m in Sources */,
