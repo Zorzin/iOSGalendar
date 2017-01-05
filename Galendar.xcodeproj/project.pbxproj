@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3E0F211E1E763F00D2017F /* LoginPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E0F201E1E763F00D2017F /* LoginPageViewController.m */; };
+		8A3E0F231E1E7B7500D2017F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A3E0F221E1E7B7500D2017F /* GoogleService-Info.plist */; };
 		8A6AF9471E1E6E2500A92747 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6AF9461E1E6E2500A92747 /* main.m */; };
 		8A6AF94A1E1E6E2500A92747 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6AF9491E1E6E2500A92747 /* AppDelegate.m */; };
 		8A6AF94D1E1E6E2500A92747 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6AF94C1E1E6E2500A92747 /* MasterViewController.m */; };
@@ -14,9 +16,16 @@
 		8A6AF9531E1E6E2500A92747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9511E1E6E2500A92747 /* Main.storyboard */; };
 		8A6AF9551E1E6E2500A92747 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9541E1E6E2500A92747 /* Assets.xcassets */; };
 		8A6AF9581E1E6E2500A92747 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9561E1E6E2500A92747 /* LaunchScreen.storyboard */; };
+		F656514FBD292ADB5EDAA131 /* libPods-Galendar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55126D6FF35DFD7D2A17D498 /* libPods-Galendar.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55126D6FF35DFD7D2A17D498 /* libPods-Galendar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Galendar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B03ECFF6898DA09E84C84EF /* Pods-Galendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Galendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-Galendar/Pods-Galendar.release.xcconfig"; sourceTree = "<group>"; };
+		7BBAA5898EE7EDD2ADA7025F /* Pods-Galendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Galendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Galendar/Pods-Galendar.debug.xcconfig"; sourceTree = "<group>"; };
+		8A3E0F1F1E1E763F00D2017F /* LoginPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPageViewController.h; sourceTree = "<group>"; };
+		8A3E0F201E1E763F00D2017F /* LoginPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPageViewController.m; sourceTree = "<group>"; };
+		8A3E0F221E1E7B7500D2017F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8A6AF9421E1E6E2500A92747 /* Galendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Galendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6AF9461E1E6E2500A92747 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8A6AF9481E1E6E2500A92747 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -36,17 +45,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F656514FBD292ADB5EDAA131 /* libPods-Galendar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81FACE5AC6539800A97C95A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7BBAA5898EE7EDD2ADA7025F /* Pods-Galendar.debug.xcconfig */,
+				6B03ECFF6898DA09E84C84EF /* Pods-Galendar.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8A6AF9391E1E6E2500A92747 = {
 			isa = PBXGroup;
 			children = (
 				8A6AF9441E1E6E2500A92747 /* Galendar */,
 				8A6AF9431E1E6E2500A92747 /* Products */,
+				81FACE5AC6539800A97C95A0 /* Pods */,
+				D63AAFB682CABED3D0E6F4FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +88,9 @@
 				8A6AF94C1E1E6E2500A92747 /* MasterViewController.m */,
 				8A6AF94E1E1E6E2500A92747 /* DetailViewController.h */,
 				8A6AF94F1E1E6E2500A92747 /* DetailViewController.m */,
+				8A3E0F221E1E7B7500D2017F /* GoogleService-Info.plist */,
+				8A3E0F1F1E1E763F00D2017F /* LoginPageViewController.h */,
+				8A3E0F201E1E763F00D2017F /* LoginPageViewController.m */,
 				8A6AF9511E1E6E2500A92747 /* Main.storyboard */,
 				8A6AF9541E1E6E2500A92747 /* Assets.xcassets */,
 				8A6AF9561E1E6E2500A92747 /* LaunchScreen.storyboard */,
@@ -84,6 +108,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D63AAFB682CABED3D0E6F4FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55126D6FF35DFD7D2A17D498 /* libPods-Galendar.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -91,9 +123,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A6AF95C1E1E6E2500A92747 /* Build configuration list for PBXNativeTarget "Galendar" */;
 			buildPhases = (
+				4D4811475015B93D99C00915 /* [CP] Check Pods Manifest.lock */,
 				8A6AF93E1E1E6E2500A92747 /* Sources */,
 				8A6AF93F1E1E6E2500A92747 /* Frameworks */,
 				8A6AF9401E1E6E2500A92747 /* Resources */,
+				C1DFA9921DE633F02CEE238C /* [CP] Embed Pods Frameworks */,
+				4C9880ED5C1A3D3457476314 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,12 +178,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A6AF9581E1E6E2500A92747 /* LaunchScreen.storyboard in Resources */,
+				8A3E0F231E1E7B7500D2017F /* GoogleService-Info.plist in Resources */,
 				8A6AF9551E1E6E2500A92747 /* Assets.xcassets in Resources */,
 				8A6AF9531E1E6E2500A92747 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C9880ED5C1A3D3457476314 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Galendar/Pods-Galendar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D4811475015B93D99C00915 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C1DFA9921DE633F02CEE238C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Galendar/Pods-Galendar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A6AF93E1E1E6E2500A92747 /* Sources */ = {
@@ -157,6 +241,7 @@
 			files = (
 				8A6AF94A1E1E6E2500A92747 /* AppDelegate.m in Sources */,
 				8A6AF94D1E1E6E2500A92747 /* MasterViewController.m in Sources */,
+				8A3E0F211E1E763F00D2017F /* LoginPageViewController.m in Sources */,
 				8A6AF9471E1E6E2500A92747 /* main.m in Sources */,
 				8A6AF9501E1E6E2500A92747 /* DetailViewController.m in Sources */,
 			);
@@ -276,6 +361,7 @@
 		};
 		8A6AF95D1E1E6E2500A92747 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BBAA5898EE7EDD2ADA7025F /* Pods-Galendar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Galendar/Info.plist;
@@ -287,6 +373,7 @@
 		};
 		8A6AF95E1E1E6E2500A92747 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B03ECFF6898DA09E84C84EF /* Pods-Galendar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Galendar/Info.plist;
@@ -315,6 +402,7 @@
 				8A6AF95E1E1E6E2500A92747 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
