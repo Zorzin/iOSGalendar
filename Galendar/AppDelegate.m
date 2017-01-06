@@ -11,6 +11,7 @@
 #import "DetailViewController.h"
 #import "MasterViewController.h"
 #import "User.h"
+#import "AppAuth.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -30,16 +31,25 @@
     NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
     (LoginPageViewController *) self.window.rootViewController;
     [GIDSignIn sharedInstance].delegate = self;
+    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary *)options {
+    
+    if ([_currentAuthorizationFlow resumeAuthorizationFlowWithURL:url]) {
+        _currentAuthorizationFlow = nil;
+        return YES;
+    }
+    
     return [[GIDSignIn sharedInstance] handleURL:url
                                sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                       annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    
 }
+
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
