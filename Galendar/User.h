@@ -9,6 +9,7 @@
 #ifndef User_h
 #define User_h
 
+#import <Google/SignIn.h>
 
 #endif /* User_h */
 
@@ -25,4 +26,7 @@
 
 + (NSString*) getToken;
 + (void) setToken:(NSString*)settoken;
+
++ (void) setUser: (GIDGoogleUser*)user;
++ (GIDGoogleUser*) getUser;
 @end

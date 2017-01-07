@@ -3,10 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[MasterViewController fetchEvents]:MasterViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "error">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[LoginPageViewController toggleAuthUI]:LoginPageViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "[GIDSignIn sharedInstance].currentUser.authentication">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MasterViewController displayResultWithTicket:finishedWithObject:error:]:MasterViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "events">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

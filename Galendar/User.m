@@ -14,6 +14,7 @@ static NSString* name;
 static NSString* userid;
 static NSString* email;
 static NSString* token;
+static GIDGoogleUser* user;
 
 + (NSString*) getName {
     return name;
@@ -45,6 +46,13 @@ static NSString* token;
 
 + (void) setToken: (NSString*)settoken{
     token = settoken;
+}
+
++(void) setUser: (GIDGoogleUser*)setuser{
+    user = setuser;
+}
++(GIDGoogleUser*) getUser{
+    return user;
 }
 
 @end

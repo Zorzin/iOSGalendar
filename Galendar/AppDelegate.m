@@ -73,7 +73,7 @@ didSignInForUser:(GIDGoogleUser *)user
     [User setEmail:email];
     [User setToken:idToken];
     [User setUserId:userId];
-    
+    [User setUser:user];
     NSDictionary *statusText = @{@"statusText":
                                      [NSString stringWithFormat:@"Signed in user: %@",
                                       fullName]};

@@ -8,6 +8,7 @@
 
 #import "LoginPageViewController.h"
 #import "MasterViewController.h"
+#import "User.h"
 
 @interface LoginPageViewController ()
 
@@ -19,8 +20,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     // TODO(developer) Configure the sign-in button look/feel
-    
     [GIDSignIn sharedInstance].uiDelegate = self;
+    NSString *calendarScope = @"https://www.googleapis.com/auth/calendar";
+    NSArray *currentScopes = [GIDSignIn sharedInstance].scopes;
+    [GIDSignIn sharedInstance].scopes = [currentScopes arrayByAddingObject:calendarScope];
+    [[GIDSignIn sharedInstance] signIn];
+    
+    
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -69,6 +75,8 @@
 
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
     // Perform any operations on signed in user here.
+    
+    
     NSString *userId = user.userID;                  // For client-side use only!
     NSString *idToken = user.authentication.idToken; // Safe to send to the server
     NSString *name = user.profile.name;
