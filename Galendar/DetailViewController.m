@@ -17,7 +17,23 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        GTLDateTime *start = self.detailItem.start.dateTime ?: self.detailItem.start.date;
+        NSString *startString =
+        [NSDateFormatter localizedStringFromDate:[start date]
+                                       dateStyle:NSDateFormatterShortStyle
+                                       timeStyle:NSDateFormatterShortStyle];
+        GTLDateTime *end = self.detailItem.end.dateTime ?: self.detailItem.end.date;
+        NSString *endString =
+        [NSDateFormatter localizedStringFromDate:[end date]
+                                       dateStyle:NSDateFormatterShortStyle
+                                       timeStyle:NSDateFormatterShortStyle];
+        
+        
+        self.detailDescriptionLabel.text = self.detailItem.summary;
+        self.startDateLabel.text = startString;
+        self.endDateLabel.text = endString;
+        self.descriptionLabel.text = self.detailItem.descriptionProperty;
+        self.placeLabel.text = self.detailItem.location;
     }
 }
 
@@ -37,7 +53,7 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(NSDate *)newDetailItem {
+- (void)setDetailItem:(GTLCalendarEvent *)newDetailItem {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
         

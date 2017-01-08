@@ -14,7 +14,7 @@
 #import "GTMSessionFetcher.h"
 #import "GTMSessionFetcherService.h"
 #import "AppDelegate.h"
-@interface MasterViewController ()<OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate>
+@interface MasterViewController ()
 
 @property NSMutableArray *objects;
 @end
@@ -27,12 +27,12 @@ static NSString *const kRedirectURI = @"com.googleusercontent.apps.771428174670-
 static NSString *const kAppAuthExampleAuthStateKey = @"authState";
 static NSString *const kKeychainItemName = @"Google Calendar API";
 OIDServiceConfiguration *configuration ;
-- (void)didChangeState:(OIDAuthState *)state {
-    [self stateChanged];
-}
-
-- (void)authState:(OIDAuthState *)state didEncounterAuthorizationError:(nonnull NSError *)error {
-}
+//- (void)didChangeState:(OIDAuthState *)state {
+//    [self stateChanged];
+//}
+//
+//- (void)authState:(OIDAuthState *)state didEncounterAuthorizationError:(nonnull NSError *)error {
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,12 +55,10 @@ OIDServiceConfiguration *configuration ;
     
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)insertNewObject:(id)sender {
     if (!self.objects) {
@@ -71,13 +69,21 @@ OIDServiceConfiguration *configuration ;
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)insertNewEvent:(GTLCalendarEvent*)event{
+    if (!self.objects) {
+        self.objects = [[NSMutableArray alloc] init];
+    }
+    [self.objects insertObject:event atIndex:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        GTLCalendarEvent *object = self.objects[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -101,8 +107,8 @@ OIDServiceConfiguration *configuration ;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    GTLCalendarEvent *object = self.objects[indexPath.row];
+    cell.textLabel.text = object.summary;
     return cell;
 }
 
@@ -123,49 +129,14 @@ OIDServiceConfiguration *configuration ;
 }
 
 
-
-
-
-- (void)setGtmAuthorization:(GTMAppAuthFetcherAuthorization*)authorization {
-    if ([_authorization isEqual:authorization]) {
-        return;
-    }
-    _authorization = authorization;
-    [self stateChanged];
-}
-- (void)stateChanged {
-    [self saveState];
-}
-
-- (void)saveState {
-    if (_authorization.canAuthorize) {
-        [GTMAppAuthFetcherAuthorization saveAuthorization:_authorization
-                                        toKeychainForName:kClientID];
-    } else {
-        [GTMAppAuthFetcherAuthorization removeAuthorizationFromKeychainForName:kClientID];
-    }
-}
-
 ////API STUFF
-//
-//// When the view appears, ensure that the Google Calendar API service is authorized, and perform API calls.
-//- (void)viewDidAppear:(BOOL)animated {
-//    if (!self.service.authorizer.canAuthorize) {
-//        // Not yet authorized, request authorization by pushing the login UI onto the UI stack.
-//        //[self presentViewController:[self createAuthController] animated:YES completion:nil];
-//    }
-//    else {
-//            [self setGtmAuthorization:nil];
-//        }
-//    }
-//
+
 // Construct a query and get a list of upcoming events from the user calendar. Display the
 // start dates and event summaries in the UITextView.
 - (void)fetchEvents {
     GTLQueryCalendar *query = [GTLQueryCalendar queryForEventsListWithCalendarId:@"primary"];
     GIDGoogleUser* user = [User getUser];
     self.service.authorizer = user.authentication.fetcherAuthorizer;
-    query.maxResults = 10;
     query.singleEvents = YES;
     query.orderBy = kGTLCalendarOrderByStartTime;
     
@@ -180,14 +151,8 @@ OIDServiceConfiguration *configuration ;
     if (error == nil) {
         NSMutableString *eventString = [[NSMutableString alloc] init];
         if (events.items.count > 0) {
-            [eventString appendString:@"Upcoming 10 events:\n"];
             for (GTLCalendarEvent *event in events) {
-                GTLDateTime *start = event.start.dateTime ?: event.start.date;
-                NSString *startString =
-                [NSDateFormatter localizedStringFromDate:[start date]
-                                               dateStyle:NSDateFormatterShortStyle
-                                               timeStyle:NSDateFormatterShortStyle];
-                [eventString appendFormat:@"%@ - %@\n", startString, event.summary];
+                [self insertNewEvent:event];
             }
         } else {
             [eventString appendString:@"No upcoming events found."];
@@ -248,60 +213,5 @@ OIDServiceConfiguration *configuration ;
     [self presentViewController:alert animated:YES completion:nil];
     
 }
-
-
-///////////
-- (void)setAuthState:(nullable OIDAuthState *)authState {
-    if (_authState == authState) {
-        return;
-    }
-    _authState = authState;
-    _authState.stateChangeDelegate = self;
-    [self stateChanged];
-}
-
-
-- (void)authWithAutoCodeExchange{
-    NSURL *issuer = [NSURL URLWithString:kIssuer];
-    NSURL *redirectURI = [NSURL URLWithString:kRedirectURI];
-    
-    // discovers endpoints
-    [OIDAuthorizationService discoverServiceConfigurationForIssuer:issuer
-         completion:^(OIDServiceConfiguration *_Nullable configuration, NSError *_Nullable error) {
-            
-            if (!configuration) {
-                [self setAuthState:nil];
-                return;
-            }
-            
-            
-            // builds authentication request
-            OIDAuthorizationRequest *request =
-            [[OIDAuthorizationRequest alloc] initWithConfiguration:configuration
-                                                          clientId:kClientID
-                                                            scopes:@[OIDScopeOpenID, OIDScopeProfile,kGTLAuthScopeCalendarReadonly]
-                                                       redirectURL:redirectURI
-                                                      responseType:OIDResponseTypeCode
-                                              additionalParameters:nil];
-            // performs authentication request
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            
-            appDelegate.currentAuthorizationFlow =
-            [OIDAuthState authStateByPresentingAuthorizationRequest:request
-           presentingViewController:self
-                           callback:^(OIDAuthState *_Nullable authState,
-                                      NSError *_Nullable error) {
-                               if (authState) {
-                                   [self setAuthState:authState];
-                                   self.service = [[GTLServiceCalendar alloc] init];
-                                   self.service.authorizer = _authorization;
-                               } else {
-                                   [self setAuthState:nil];
-                               }
-                           }];
-        }];
-}
-
-
 
 @end
