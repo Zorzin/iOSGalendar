@@ -26,5 +26,29 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[DateViewController SaveDate:]:DateViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dt.date">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[DateTimeViewController SaveDate:]:DateTimeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dt.date">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AddEventViewController AllDaySwitchValueChanged:]:AddEventViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "switchStatus">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

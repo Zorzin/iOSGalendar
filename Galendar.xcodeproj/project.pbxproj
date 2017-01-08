@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0D86D31E22733B00532082 /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D86D21E22733B00532082 /* AddEventViewController.m */; };
+		8A0D86DC1E22962600532082 /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D86DB1E22962600532082 /* DateViewController.m */; };
+		8A0D86DF1E22963400532082 /* DateTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D86DE1E22963400532082 /* DateTimeViewController.m */; };
+		8A0D86E11E229BC700532082 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D86E01E229BC700532082 /* Event.m */; };
 		8A3E0F211E1E763F00D2017F /* LoginPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E0F201E1E763F00D2017F /* LoginPageViewController.m */; };
 		8A3E0F231E1E7B7500D2017F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A3E0F221E1E7B7500D2017F /* GoogleService-Info.plist */; };
 		8A6AF9471E1E6E2500A92747 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6AF9461E1E6E2500A92747 /* main.m */; };
@@ -24,6 +28,14 @@
 		55126D6FF35DFD7D2A17D498 /* libPods-Galendar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Galendar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B03ECFF6898DA09E84C84EF /* Pods-Galendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Galendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-Galendar/Pods-Galendar.release.xcconfig"; sourceTree = "<group>"; };
 		7BBAA5898EE7EDD2ADA7025F /* Pods-Galendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Galendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Galendar/Pods-Galendar.debug.xcconfig"; sourceTree = "<group>"; };
+		8A0D86D11E22733B00532082 /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
+		8A0D86D21E22733B00532082 /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
+		8A0D86DA1E22962600532082 /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateViewController.h; sourceTree = "<group>"; };
+		8A0D86DB1E22962600532082 /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateViewController.m; sourceTree = "<group>"; };
+		8A0D86DD1E22963400532082 /* DateTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeViewController.h; sourceTree = "<group>"; };
+		8A0D86DE1E22963400532082 /* DateTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeViewController.m; sourceTree = "<group>"; };
+		8A0D86E01E229BC700532082 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		8A0D86E21E229BFA00532082 /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		8A3E0F1F1E1E763F00D2017F /* LoginPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPageViewController.h; sourceTree = "<group>"; };
 		8A3E0F201E1E763F00D2017F /* LoginPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPageViewController.m; sourceTree = "<group>"; };
 		8A3E0F221E1E7B7500D2017F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -94,6 +106,12 @@
 				8A3E0F221E1E7B7500D2017F /* GoogleService-Info.plist */,
 				8A3E0F1F1E1E763F00D2017F /* LoginPageViewController.h */,
 				8A3E0F201E1E763F00D2017F /* LoginPageViewController.m */,
+				8A0D86D11E22733B00532082 /* AddEventViewController.h */,
+				8A0D86D21E22733B00532082 /* AddEventViewController.m */,
+				8A0D86DA1E22962600532082 /* DateViewController.h */,
+				8A0D86DB1E22962600532082 /* DateViewController.m */,
+				8A0D86DD1E22963400532082 /* DateTimeViewController.h */,
+				8A0D86DE1E22963400532082 /* DateTimeViewController.m */,
 				8A6AF9511E1E6E2500A92747 /* Main.storyboard */,
 				8A6AF9541E1E6E2500A92747 /* Assets.xcassets */,
 				8A6AF9561E1E6E2500A92747 /* LaunchScreen.storyboard */,
@@ -101,6 +119,8 @@
 				8A6AF9451E1E6E2500A92747 /* Supporting Files */,
 				8A7FD1451E1EAE39005924C8 /* User.m */,
 				8A7FD1471E1EB024005924C8 /* User.h */,
+				8A0D86E01E229BC700532082 /* Event.m */,
+				8A0D86E21E229BFA00532082 /* Event.h */,
 			);
 			path = Galendar;
 			sourceTree = "<group>";
@@ -245,8 +265,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A6AF94A1E1E6E2500A92747 /* AppDelegate.m in Sources */,
+				8A0D86D31E22733B00532082 /* AddEventViewController.m in Sources */,
+				8A0D86E11E229BC700532082 /* Event.m in Sources */,
 				8A6AF94D1E1E6E2500A92747 /* MasterViewController.m in Sources */,
+				8A0D86DF1E22963400532082 /* DateTimeViewController.m in Sources */,
 				8A7FD1461E1EAE39005924C8 /* User.m in Sources */,
+				8A0D86DC1E22962600532082 /* DateViewController.m in Sources */,
 				8A3E0F211E1E763F00D2017F /* LoginPageViewController.m in Sources */,
 				8A6AF9471E1E6E2500A92747 /* main.m in Sources */,
 				8A6AF9501E1E6E2500A92747 /* DetailViewController.m in Sources */,

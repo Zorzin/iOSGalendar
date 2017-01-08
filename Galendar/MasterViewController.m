@@ -14,6 +14,7 @@
 #import "GTMSessionFetcher.h"
 #import "GTMSessionFetcherService.h"
 #import "AppDelegate.h"
+#import "AddEventViewController.h"
 @interface MasterViewController ()
 
 @property NSMutableArray *objects;
@@ -38,12 +39,13 @@ OIDServiceConfiguration *configuration ;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.editButtonItem.title = @"Remove";
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddPage)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.service = [[GTLServiceCalendar alloc] init];
-    [self fetchEvents];
+    
     
 }
 
@@ -51,7 +53,7 @@ OIDServiceConfiguration *configuration ;
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
-    
+    [self fetchEvents];
     
 }
 
@@ -60,15 +62,10 @@ OIDServiceConfiguration *configuration ;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[User getEmail] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+-(void)openAddPage{
+    AddEventViewController *addEventViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEvent"];
+    [self presentViewController:addEventViewController animated:NO completion:nil];
 }
-
 - (void)insertNewEvent:(GTLCalendarEvent*)event{
     if (!self.objects) {
         self.objects = [[NSMutableArray alloc] init];
@@ -134,6 +131,8 @@ OIDServiceConfiguration *configuration ;
 // Construct a query and get a list of upcoming events from the user calendar. Display the
 // start dates and event summaries in the UITextView.
 - (void)fetchEvents {
+    [self.objects removeAllObjects];
+    [self.tableView reloadData];
     GTLQueryCalendar *query = [GTLQueryCalendar queryForEventsListWithCalendarId:@"primary"];
     GIDGoogleUser* user = [User getUser];
     self.service.authorizer = user.authentication.fetcherAuthorizer;
