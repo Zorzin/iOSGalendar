@@ -11,6 +11,7 @@
 #import "DateTimeViewController.h"
 
 @interface AddEventViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (nonatomic, strong) GTLServiceCalendar *service;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionField;

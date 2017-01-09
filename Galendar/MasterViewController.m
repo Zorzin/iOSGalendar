@@ -21,7 +21,8 @@
 @end
 
 @implementation MasterViewController
-
+dispatch_semaphore_t sema;
+static BOOL deleteResult;
 static NSString *const kIssuer = @"https://accounts.google.com";
 static NSString *const kClientID = @"771428174670-83blj1mg19jdtudmp61jo669pkpslbjt.apps.googleusercontent.com";
 static NSString *const kRedirectURI = @"com.googleusercontent.apps.771428174670-83blj1mg19jdtudmp61jo669pkpslbjt:/oauthredirect";
@@ -38,11 +39,12 @@ OIDServiceConfiguration *configuration ;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    self.editButtonItem.title = @"Remove";
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"LogOut" style:UIBarButtonItemStyleDone target:self action:@selector(logOut)];
+    self.navigationItem.leftBarButtonItems = @[self.editButtonItem, backButton];
 
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(fetchEvents)];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddPage)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    self.navigationItem.rightBarButtonItems = @[addButton,refreshButton];
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.service = [[GTLServiceCalendar alloc] init];
     
@@ -60,6 +62,12 @@ OIDServiceConfiguration *configuration ;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)logOut{
+    [[GIDSignIn sharedInstance] signOut];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 -(void)openAddPage{
@@ -118,14 +126,38 @@ OIDServiceConfiguration *configuration ;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        GTLCalendarEvent *event = [self.objects objectAtIndex:indexPath.row];
+        [self deleteFromCalendar:event];
+        
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
 
+-(void)deleteFromCalendar:(GTLCalendarEvent*)event
+{
+    GTLQueryCalendar *deletequery = [GTLQueryCalendar queryForEventsDeleteWithCalendarId:@"primary" eventId:event.identifier];
+    [self.service executeQuery:deletequery
+                      delegate:self
+             didFinishSelector:@selector(deleteResult:finishedWithObject:error:)];
+}
 
+-(void) deleteResult:(GTLServiceTicket *)ticket
+                        finishedWithObject:(GTLCalendarEvents *)events
+                        error:(NSError *)error
+{
+    if (error == nil) {
+        deleteResult = YES;
+        NSLog(@"event deleted");
+        [self fetchEvents];
+        
+    } else {
+        deleteResult = NO;
+        [self showAlert:@"Error" message:[error localizedDescription]];
+        NSLog(@"event deleted failed --- %@",[error description]);
+    }
+}
 ////API STUFF
 
 // Construct a query and get a list of upcoming events from the user calendar. Display the
@@ -151,10 +183,37 @@ OIDServiceConfiguration *configuration ;
         NSMutableString *eventString = [[NSMutableString alloc] init];
         if (events.items.count > 0) {
             for (GTLCalendarEvent *event in events) {
-                [self insertNewEvent:event];
+                NSDate *end = event.end.dateTime.date;
+                NSDate *now = [NSDate date];
+                if (end==nil) {
+                    end = event.end.date.date;
+                    NSCalendar *calendar = [NSCalendar currentCalendar];
+                    NSInteger comps = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
+                    
+                    NSDateComponents *date1Components = [calendar components:comps
+                                                                    fromDate: now];
+                    NSDateComponents *date2Components = [calendar components:comps
+                                                                    fromDate: end];
+                    
+                    now = [calendar dateFromComponents:date1Components];
+                    end = [calendar dateFromComponents:date2Components];
+                    NSComparisonResult result = [now compare:end];
+                    if (result!=NSOrderedDescending) {
+                        [self insertNewEvent:event];
+                    }
+                }
+                else
+                {
+                    
+                    NSComparisonResult result = [now compare:end];
+                    
+                    if (result==NSOrderedAscending) {
+                        [self insertNewEvent:event];
+                    }
+                }
             }
         } else {
-            [eventString appendString:@"No upcoming events found."];
+            [self showAlert:@"Nothing to show" message:@"No upcoming events found"];
         }
         self.output.text = eventString;
     } else {

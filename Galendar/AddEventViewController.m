@@ -24,6 +24,7 @@ static BOOL switchStatus;
 static NSString *date;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -36,17 +37,64 @@ static NSString *date;
 {
     [super viewDidAppear:animated];
     NSString *type = [Event getType];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    if (switchStatus) {
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    }
     if ([type length]!=0) {
         if ([type isEqualToString:@"start"]) {
-            self.startDateField.text = [Event getDateTimeStart].stringValue;
+            NSString *formattedDateString = [dateFormatter stringFromDate:[Event getDateTimeStart].date];
+            self.startDateField.text = formattedDateString;
         }
         else
         {
-            self.endDateField.text = [Event getDateTimeEnd].stringValue;
+            NSString *formattedDateString = [dateFormatter stringFromDate:[Event getDateTimeEnd].date];
+            self.endDateField.text = formattedDateString;
         }
     }
+    [self checkButton];
 }
 
+-(void)checkButton{
+    GTLDateTime *startdatetime,*enddatetime;
+    startdatetime = [Event getDateTimeStart];
+    enddatetime = [Event getDateTimeEnd];
+    self.addButton.hidden = YES;
+    if (startdatetime!=nil && enddatetime!=nil) {
+        NSDate *end,*start;
+        end = enddatetime.date;
+        start = startdatetime.date;
+        if (switchStatus) {
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSInteger comps = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
+            
+            NSDateComponents *date1Components = [calendar components:comps
+                                                            fromDate: start];
+            NSDateComponents *date2Components = [calendar components:comps
+                                                            fromDate: end];
+            
+            start = [calendar dateFromComponents:date1Components];
+            end = [calendar dateFromComponents:date2Components];
+            NSComparisonResult result = [start compare:end];
+            if (result!=NSOrderedDescending) {
+                self.addButton.hidden = NO;
+            }
+        }
+        else
+        {
+            NSComparisonResult result = [start compare:end];
+            
+            if (result==NSOrderedAscending) {
+                self.addButton.hidden = NO;
+            }
+        }
+
+        
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -115,8 +163,59 @@ static NSString *date;
 
 - (IBAction)AllDaySwitchValueChanged:(id)sender {
     switchStatus = self.allDaySwitch.isOn;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    if (self.allDaySwitch.isOn) {
+        
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        GTLDateTime *end = [Event getDateTimeEnd];
+        GTLDateTime *start = [Event getDateTimeStart];
+        if (end!=nil) {
+            NSDate *enddate = end.date;
+            GTLDateTime *newend = [GTLDateTime dateTimeForAllDayWithDate:enddate];
+            [Event setDateTimeEnd:newend];
+        }
+        if (start!=nil) {
+            NSDate *startdate = start.date;
+            GTLDateTime *newstart = [GTLDateTime dateTimeForAllDayWithDate:startdate];
+            [Event setDateTimeStart:newstart];
+        }
+
+    }
+    else
+    {
+        GTLDateTime *end = [Event getDateTimeEnd];
+        GTLDateTime *start = [Event getDateTimeStart];
+        if (end!=nil) {
+            NSDate *enddate = end.date;
+            GTLDateTime *newend = [GTLDateTime dateTimeWithDate:enddate timeZone:[NSTimeZone systemTimeZone]];
+            [Event setDateTimeEnd:newend];
+        }
+        if (start!=nil) {
+            NSDate *startdate = start.date;
+            GTLDateTime *newstart = [GTLDateTime dateTimeWithDate:startdate timeZone:[NSTimeZone systemTimeZone]];
+            [Event setDateTimeStart:newstart];
+        }
+    }
+    
+    
+    if ([Event getDateTimeStart]!=nil) {
+        
+        NSString *formattedDateString = [dateFormatter stringFromDate:[Event getDateTimeStart].date];
+        self.startDateField.text = formattedDateString;
+    }
+    if ([Event getDateTimeEnd]!=nil) {
+        
+        NSString *formattedDateString = [dateFormatter stringFromDate:[Event getDateTimeEnd].date];
+        self.endDateField.text = formattedDateString;
+    }
+    
 }
+
 - (IBAction)AddEvent:(id)sender {
+    
     GTLCalendarEvent *calEvent = [GTLCalendarEvent object];
     calEvent.summary = self.titleField.text;
     calEvent.descriptionProperty = self.descriptionField.text;
@@ -147,17 +246,41 @@ static NSString *date;
                  completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
                      if (error == nil) {
                          NSLog(@"event added");
+                         [Event setDateTimeEnd:nil];
+                         [Event setDateTimeStart:nil];
+                         [Event setType:nil];
+                         [self dismissViewControllerAnimated:YES completion:nil];
                      } else {
                          NSLog(@"event added failed --- %@",[error description]);
+                         [self showAlert:@"Error" message:[error localizedDescription]];
                      }
                  }];
+    
 
     
 }
 - (IBAction)Cancel:(id)sender {
+    [Event setDateTimeEnd:nil];
+    [Event setDateTimeStart:nil];
+    [Event setType:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+- (void)showAlert:(NSString *)title message:(NSString *)message {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:title
+                                        message:message
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok =
+    [UIAlertAction actionWithTitle:@"OK"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action)
+     {
+         [alert dismissViewControllerAnimated:YES completion:nil];
+     }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 
 
 

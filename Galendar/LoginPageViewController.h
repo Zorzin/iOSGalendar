@@ -11,7 +11,7 @@
 
 @interface LoginPageViewController : UIViewController <GIDSignInUIDelegate>
 
-@property (weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
+@property (weak, nonatomic) IBOutlet UIButton *signInButton;
 @property (weak, nonatomic) IBOutlet UIButton *signOutButton;
 @property (weak, nonatomic) IBOutlet UIButton *disconnectButton;
 @property (weak, nonatomic) IBOutlet UILabel *statusText;

@@ -40,6 +40,9 @@
     [self toggleAuthUI];
     self.statusText.text = @"Google Sign in\niOS Demo";
 }
+- (IBAction)SignInButton:(id)sender {
+    [[GIDSignIn sharedInstance] signIn];
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -61,14 +64,12 @@
     if ([GIDSignIn sharedInstance].currentUser.authentication == nil) {
         // Not signed in
         self.statusText.text = @"Google Sign in\niOS Demo";
-        self.signInButton.hidden = NO;
+        [self.signInButton setHidden:NO];
         self.signOutButton.hidden = YES;
-        self.disconnectButton.hidden = YES;
     } else {
         // Signed in
-        self.signInButton.hidden = YES;
+        [self.signInButton setHidden:YES];
         self.signOutButton.hidden = NO;
-        self.disconnectButton.hidden = NO;
     }
 }
 // [END toggle_auth]
@@ -100,10 +101,11 @@
 
 - (void) receiveToggleAuthUINotification:(NSNotification *) notification {
     if ([notification.name isEqualToString:@"ToggleAuthUINotification"]) {
+        if ([User getUser]!=nil) {
         [self toggleAuthUI];
         UISplitViewController *masterViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SplitViewController"];
         [self presentViewController:masterViewController animated:NO completion:nil];
-        self.statusText.text = notification.userInfo[@"statusText"];
+        }
     }
 }
 

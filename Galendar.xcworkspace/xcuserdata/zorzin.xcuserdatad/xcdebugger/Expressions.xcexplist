@@ -27,15 +27,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[DateViewController SaveDate:]:DateViewController.m">
+         contextName = "-[MasterViewController deleteFromCalendar:]:MasterViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "dt.date">
+               value = "deleteResult">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[DateTimeViewController SaveDate:]:DateTimeViewController.m">
+         contextName = "-[DateViewController SaveDate:]:DateViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "dt.date">
@@ -46,7 +46,26 @@
          contextName = "-[AddEventViewController AllDaySwitchValueChanged:]:AddEventViewController.m">
          <PersistentStrings>
             <PersistentString
+               value = "[Event getDateTimeStart]">
+            </PersistentString>
+            <PersistentString
                value = "switchStatus">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[LoginPageViewController receiveToggleAuthUINotification:]:LoginPageViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[User getUser]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[DateTimeViewController SaveDate:]:DateTimeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dt.date">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
