@@ -21,6 +21,8 @@
 		8A6AF9551E1E6E2500A92747 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9541E1E6E2500A92747 /* Assets.xcassets */; };
 		8A6AF9581E1E6E2500A92747 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6AF9561E1E6E2500A92747 /* LaunchScreen.storyboard */; };
 		8A7FD1461E1EAE39005924C8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7FD1451E1EAE39005924C8 /* User.m */; };
+		8A87D2671E32D5F7006EA07C /* andmain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A87D2651E32D5F7006EA07C /* andmain.jpg */; };
+		8A87D2681E32D5F7006EA07C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A87D2661E32D5F7006EA07C /* icon.png */; };
 		F656514FBD292ADB5EDAA131 /* libPods-Galendar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55126D6FF35DFD7D2A17D498 /* libPods-Galendar.a */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		8A6AF9591E1E6E2500A92747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7FD1451E1EAE39005924C8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8A7FD1471E1EB024005924C8 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		8A87D2651E32D5F7006EA07C /* andmain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = andmain.jpg; sourceTree = "<group>"; };
+		8A87D2661E32D5F7006EA07C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 		8A6AF9391E1E6E2500A92747 = {
 			isa = PBXGroup;
 			children = (
+				8A87D2651E32D5F7006EA07C /* andmain.jpg */,
+				8A87D2661E32D5F7006EA07C /* icon.png */,
 				8A6AF9441E1E6E2500A92747 /* Galendar */,
 				8A6AF9431E1E6E2500A92747 /* Products */,
 				81FACE5AC6539800A97C95A0 /* Pods */,
@@ -202,7 +208,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A87D2671E32D5F7006EA07C /* andmain.jpg in Resources */,
 				8A6AF9581E1E6E2500A92747 /* LaunchScreen.storyboard in Resources */,
+				8A87D2681E32D5F7006EA07C /* icon.png in Resources */,
 				8A3E0F231E1E7B7500D2017F /* GoogleService-Info.plist in Resources */,
 				8A6AF9551E1E6E2500A92747 /* Assets.xcassets in Resources */,
 				8A6AF9531E1E6E2500A92747 /* Main.storyboard in Resources */,
