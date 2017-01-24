@@ -25,6 +25,8 @@ static NSString *date;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self AllDaySwitchValueChanged:nil];
+    [self checkButton];
     // Do any additional setup after loading the view.
 }
 
@@ -47,12 +49,16 @@ static NSString *date;
     if ([type length]!=0) {
         if ([type isEqualToString:@"start"]) {
             NSString *formattedDateString = [dateFormatter stringFromDate:[Event getDateTimeStart].date];
-            self.startDateField.text = formattedDateString;
+            if (formattedDateString !=nil) {
+                self.startDateField.text = formattedDateString;
+            }
         }
         else
         {
             NSString *formattedDateString = [dateFormatter stringFromDate:[Event getDateTimeEnd].date];
-            self.endDateField.text = formattedDateString;
+            if (formattedDateString !=nil) {
+                self.endDateField.text = formattedDateString;
+            }
         }
     }
     [self checkButton];
@@ -118,8 +124,6 @@ static NSString *date;
     }
     
     // present the controller
-    // on iPad, this will be a Popover
-    // on iPhone, this will be an action sheet
     controller.modalPresentationStyle = UIModalPresentationPopover;
     [self presentViewController:controller animated:YES completion:nil];
     
@@ -142,8 +146,6 @@ static NSString *date;
     }
     
     // present the controller
-    // on iPad, this will be a Popover
-    // on iPhone, this will be an action sheet
     controller.modalPresentationStyle = UIModalPresentationPopover;
     [self presentViewController:controller animated:YES completion:nil];
     
